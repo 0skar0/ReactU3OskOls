@@ -1,0 +1,10 @@
+.userWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+}
+
+.userWrapper p {
+  margin-bottom: 3px;
+}

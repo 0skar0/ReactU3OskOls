@@ -1,0 +1,19 @@
+.wrapper {
+  margin: 0 auto;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  width: 100%;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.manageUserWrapper {
+  height: 100%;
+}
