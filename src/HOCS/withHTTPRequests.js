@@ -6,12 +6,15 @@ export default function getUsersFromAPI (WrappedComponent) {
     state = {
       allUsers: null,
       singleUser: null,
+      runOrNot: false,
     }
 
     //Ropar på fetchAllUsers när componenten körs.
     componentDidMount() {
       this.fetchAllUsers();
     }
+
+
 
     //Lägger till en user med POST och sätter ett nytt state('gamla' användare plus den nya användaren).
     addUser = (user, nickname, email) => {
@@ -30,9 +33,9 @@ export default function getUsersFromAPI (WrappedComponent) {
         }
       }
     }
-      //Det kan råka vara en PUT ist för en POST här.. Hoppas jag inte glömmer att ändra det. Vill inte POSTA upp för många användare när jag testat.
-      fetch('http://api.softhouse.rocks/users/11', {
-        method: 'PUT',
+
+      fetch('http://api.softhouse.rocks/users', {
+        method: 'POST',
         headers: {
           "content-type": "application/json"
         },
@@ -41,7 +44,7 @@ export default function getUsersFromAPI (WrappedComponent) {
       .then(res => res.json())
       .then(res => {
         this.setState(prevState => ({
-          allUsers: [res, ...prevState.allUsers],
+          allUsers: [...prevState.allUsers, res],
           //Här har jag försökt sätta ett state 'runOrNot' till true, när jag loggar mina states så får den true, sen false, sen true och false igen. Fattar inte riktigt det beteendet.
         }))
       })

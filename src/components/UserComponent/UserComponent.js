@@ -27,7 +27,6 @@ function UserComponent(props) {
   //   props.fetchAllUsers();
   // }
 
-
     return (
       <div>
         <ul style={{padding: 0}}>
