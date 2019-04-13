@@ -23,10 +23,12 @@ function UserScreen(props) {
 
     let userID = props.match.params.id;
 
+    //ropar på min fetchSingleUser i HOC med ett ID från params.
     useEffect(() => {
       props.singleUserFunc(userID);
     }, [])
 
+    //sätter mitt userstate med singleUser från HOC.
     useEffect(() => {
       setUser(props.states.singleUser);
     })
@@ -58,7 +60,6 @@ function UserScreen(props) {
       </div>
     )
   }
-
 
 export default getUsersFromAPI(UserScreen);
 

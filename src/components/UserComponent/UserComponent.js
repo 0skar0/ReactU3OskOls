@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 
 import getUsersFromAPI from '../../HOCS/withHTTPRequests';
 
-//Funktion som tar emot tre props; color, userStates och users. Returnerar (genom map-metoden) ett li-element för varje users som tas emot. Beroende på om color är true eller false får li-elementet antingen en blå-ish eller grön-ish färg. Beroende på om userState är true elr false renderas två olika listor, en med 'true' users eller en med 'false' users.
-
+//Funktion som tar emot ett antal props. Returnerar (genom map-metoden) ett li-element för varje users som tas emot. Beroende på om color är true eller false får li-elementet antingen en blå-ish eller grön-ish färg.
 function UserComponent(props) {
   let color = props.color;
   const trueColor = '#000099';
@@ -13,13 +12,21 @@ function UserComponent(props) {
 
   const [users, setAllUsers] = useState();
 
+
+  //lägger till ett state för mina users med hooken useEffect. Här var min tanke att när den får nya props från min HOC så skulle den automatiskt köra en uppdatering och den nya användaren läggas till direkt. Men icke..
   useEffect(() => {
     setAllUsers(props.states.allUsers)
   })
 
   if (!users) {
-    return <p>W8</p>
+    return <p>Loading...</p>
   }
+
+  //Hade tänkt en liten fuling i stil med detta. Men lyckades inte få runOrNot till true (läs i HOC).
+  // if (props.states.runOrNot) {
+  //   props.fetchAllUsers();
+  // }
+
 
     return (
       <div>
@@ -48,4 +55,7 @@ UserComponent.propTypes = {
   isActive: PropTypes.bool,
   color: PropTypes.bool,
   userStates: PropTypes.bool,
+  singleUserFunc: PropTypes.func,
+  updateUserList: PropTypes.func,
+  states: PropTypes.object,
 }

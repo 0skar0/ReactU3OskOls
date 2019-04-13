@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import getUsersFromAPI from '../../HOCS/withHTTPRequests';
 import CardComponent from '../CardComponent/CardComponent';
 import UserComponent from '../UserComponent/UserComponent';
 import styles from './dashboardStyle.module.css';
 
-//Komponent som hanterar fyra states, users, userStates, color och userToConcat. userName och color passas till UserComponent. userToConcat hanterar input-fältet. Komponenten renderar CardComponent och UserComponent.
+//Komponent som hanterar fyra states, emailToConcat, usernameToConcat, color och userToConcat. color passas till UserComponent. Övriga states är för mina inputfält. Komponenten renderar CardComponent och UserComponent.
 class DashboardComponent extends Component {
 
   constructor(props) {
@@ -25,16 +26,6 @@ class DashboardComponent extends Component {
     }));
   }
 
-  //Metod för att lägga till users. Först skapar jag ett objekt där jag tilldelar ett unikt id, namnet från inputfältet och isActive till true. Sedan concatar jag objektet (userToAdd) med mitt state.users
-
-
-  //Tar bort sista värdet i users med hjälp av slice-metoden.
-  removeUser = () => {
-    let userToRemove = this.state.users.slice(0, -1);
-    this.setState( {
-      users: userToRemove
-    });
-  }
 
   //Hanterar inputfälten beroende på dess 'name' ist för att skriva en handleChange för varje input.
   handleChange = (event) => {
@@ -43,12 +34,6 @@ class DashboardComponent extends Component {
     });
   }
 
-  //Metod för att antingen visa aktiva eller inaktiva users.
-  toggleActiveInactiveUsers = () => {
-    this.setState(prevState =>  ({
-      userStates: !prevState.userStates,
-    }));
-  }
 
   render() {
     return(
@@ -109,3 +94,9 @@ class DashboardComponent extends Component {
 }
 
 export default getUsersFromAPI(DashboardComponent);
+
+DashboardComponent.propTypes = {
+  singleUserFunc: PropTypes.func,
+  updateUserList: PropTypes.func,
+  states: PropTypes.object,
+}
