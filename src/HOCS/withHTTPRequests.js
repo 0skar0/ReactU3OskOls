@@ -6,15 +6,12 @@ export default function getUsersFromAPI (WrappedComponent) {
     state = {
       allUsers: null,
       singleUser: null,
-      runOrNot: false,
     }
 
     //Ropar på fetchAllUsers när componenten körs.
     componentDidMount() {
       this.fetchAllUsers();
     }
-
-
 
     //Lägger till en user med POST och sätter ett nytt state('gamla' användare plus den nya användaren).
     addUser = (user, nickname, email) => {
@@ -33,7 +30,6 @@ export default function getUsersFromAPI (WrappedComponent) {
         }
       }
     }
-
       fetch('http://api.softhouse.rocks/users', {
         method: 'POST',
         headers: {
@@ -45,7 +41,6 @@ export default function getUsersFromAPI (WrappedComponent) {
       .then(res => {
         this.setState(prevState => ({
           allUsers: [...prevState.allUsers, res],
-          //Här har jag försökt sätta ett state 'runOrNot' till true, när jag loggar mina states så får den true, sen false, sen true och false igen. Fattar inte riktigt det beteendet.
         }))
       })
 
@@ -68,13 +63,13 @@ export default function getUsersFromAPI (WrappedComponent) {
         allUsers: res,
       })))
     }
+
     render() {
       if (!this.state.allUsers) {
         return <div>Loading...</div>
       }
-
-
-      return <WrappedComponent {...this.props} singleUserFunc={this.fetchSingleUser} fetchAllUsers={this.fetchAllUsers} updateUserList={this.addUser} states={this.state}/>
+      
+      return <WrappedComponent {...this.props} singleUserFunc={this.fetchSingleUser} updateUserList={this.addUser} states={this.state}/>
     }
   };
 }

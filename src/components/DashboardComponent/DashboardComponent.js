@@ -13,6 +13,7 @@ class DashboardComponent extends Component {
     super(props);
     this.state = {
       color: true,
+      runOrNot: false,
       userToConcat: [''],
       usernameToConcat: [''],
       emailToConcat: [''],
@@ -26,7 +27,6 @@ class DashboardComponent extends Component {
     }));
   }
 
-
   //Hanterar inputfälten beroende på dess 'name' ist för att skriva en handleChange för varje input.
   handleChange = (event) => {
     this.setState({
@@ -34,6 +34,11 @@ class DashboardComponent extends Component {
     });
   }
 
+  //Lägger till en användare. Ropar på metoden i min HOC och skickar in värdena från mina inputfält.
+  addUserFunc = (event) => {
+    event.preventDefault();
+    this.props.updateUserList(this.state.userToConcat, this.state.usernameToConcat, this.state.emailToConcat);
+  }
 
   render() {
     return(
@@ -42,6 +47,7 @@ class DashboardComponent extends Component {
           <CardComponent>
             <UserComponent
               color={this.state.color}
+              users={this.props.states.allUsers}
             />
             <button
               style={{width: '100%'}}
@@ -79,7 +85,7 @@ class DashboardComponent extends Component {
 
               <button
                 className="btn btn-success mb-2"
-                onClick={() => this.props.updateUserList(this.state.userToConcat, this.state.usernameToConcat, this.state.emailToConcat)}
+                onClick={this.addUserFunc}
               >Add User</button>
               <button
                 className="btn btn-danger"
