@@ -87,10 +87,6 @@ class DashboardComponent extends Component {
                 className="btn btn-success mb-2"
                 onClick={this.addUserFunc}
               >Add User</button>
-              <button
-                className="btn btn-danger"
-                onClick={() => this.removeUser()}
-              >Remove User</button>
             </div>
           </CardComponent>
         </div>
